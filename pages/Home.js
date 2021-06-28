@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react';
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import Link from 'next/link';
-// import BurgerMenu from "../components/BurgerMenu";
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 import { useKeenSlider } from 'keen-slider/react';
 import { useEffect } from 'react';
@@ -23,6 +22,7 @@ import { useEffect } from 'react';
 const Banner = () => {
   return (
     <Box
+      id='main'
       height='calc(100vh)'
       position='relative'
       backgroundColor='rgba(0, 0, 0, 0.5)'
@@ -30,6 +30,7 @@ const Banner = () => {
         content: "''",
         position: 'absolute',
         top: 0,
+        bgRepeat: 'no-repeat',
         left: 0,
         width: '100%',
         height: '100%',
@@ -86,6 +87,8 @@ const Banner = () => {
             d='flex'
             width='100%'
             height='100%'
+            bgRepeat='no-repeat'
+            bgPos='center'
             justifyContent='center'
             bgImage="url('/assets/1MainBgGlass.png')"
           >
@@ -151,9 +154,10 @@ const ContactsForm = () => {
 
 export const About = () => {
   return (
-    <Box bgColor='#030308'>
-      <Container maxW='container.lg'>
+    <Box bgColor='#030308' w='100%' id='about'>
+      <Container maxW='container.md'>
         <Heading
+          margin='0'
           fontSize='36px'
           paddingTop='300px'
           color='white'
@@ -215,7 +219,7 @@ const Benefits = ({ bgUrl, photoContent, desc }) => {
 
 const Projects = () => {
   return (
-    <Box bgColor='#030308' paddingTop='150px'>
+    <Box bgColor='#030308' paddingTop='150px' id='projects'>
       <Container maxW='container.lg'>
         <Flex justifyContent='space-between'>
           <Box border='white 23px solid'>
@@ -294,9 +298,10 @@ const testimonals = [
 const Testimonals = () => {
   return (
     <Box
+      id='feedback'
       height='calc(100vh)'
       position='relative'
-      backgroundColor='rgba(0, 0, 0, 0.5)'
+      bgColor='#030308'
       d='flex'
       _after={{
         content: "''",
@@ -323,7 +328,7 @@ const Testimonals = () => {
           <Heading fontSize='48px' color='white' fontWeight='bold'>
             What people say about us?
           </Heading>
-          <TestimonalsSlider paddingTop='80px' testimonals={testimonals} />
+          {/* <TestimonalsSlider paddingTop='80px' testimonals={testimonals} /> */}
         </Box>
       </Container>
     </Box>
@@ -400,7 +405,7 @@ const TestimonalsSlider = ({ testimonals }) => {
 
 const Contacts = () => {
   return (
-    <Box bgColor='black' paddingTop='80px' h='800px'>
+    <Box id='contacts' bgColor='black' paddingTop='80px' h='800px'>
       <Container maxW='container.lg'>
         <Flex justifyContent='space-between'>
           <ContactsForm />
@@ -485,14 +490,87 @@ const Footer = () => {
 
 const Home = () => {
   return (
-    <>
-      <Banner />
-      <About />
-      <Projects />
-      <Testimonals />
-      <Contacts />
-      <Footer />
-    </>
+    <Box>
+      <Container maxW='container.md'>
+        <Stack
+          spacing='60px'
+          pos='fixed'
+          marginLeft='10px'
+          marginTop='50px'
+          zIndex='16'
+        >
+          <a href='#main'>
+            <Text
+              color='#696A6B'
+              transform='rotate(90deg)'
+              _hover={{
+                color: 'white',
+                borderBottom: '1px solid #18A0FB',
+                padding: '0',
+              }}
+            >
+              Who we are
+            </Text>
+          </a>
+          <a href='#about'>
+            <Text
+              color='#696A6B'
+              transform='rotate(90deg)'
+              _hover={{
+                color: 'white',
+                borderBottom: '1px solid #18A0FB',
+                padding: '0',
+              }}
+            >
+              What we do
+            </Text>
+          </a>
+          <a href='#projects'>
+            <Text
+              color='#696A6B'
+              transform='rotate(90deg)'
+              _hover={{
+                color: 'white',
+                borderBottom: '1px solid #18A0FB',
+                padding: '0',
+              }}
+            >
+              Our projects
+            </Text>
+          </a>
+          <a href='#feedback'>
+            <Text
+              color='#696A6B'
+              transform='rotate(90deg)'
+              _hover={{
+                color: 'white',
+                borderBottom: '1px solid #18A0FB',
+                padding: '0',
+              }}
+            >
+              Testimonals
+            </Text>
+          </a>
+          <Text
+            color='#696A6B'
+            transform='rotate(90deg)'
+            _hover={{
+              color: 'white',
+              borderBottom: '1px solid #18A0FB',
+              padding: '0',
+            }}
+          >
+            <a href='#contacts'>Contact Us</a>
+          </Text>
+        </Stack>
+        <Banner name='main' />
+        <About name='about' />
+        <Projects name='projects' />
+        <Testimonals name='feedback' />
+        <Contacts name='contacts' />
+        <Footer />
+      </Container>
+    </Box>
   );
 };
 export default Home;
