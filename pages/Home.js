@@ -8,16 +8,14 @@ import {
   Stack,
   Heading,
   Icon,
-  useBreakpointValue,
-  IconButton,
   HStack,
   Input,
 } from '@chakra-ui/react';
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import Link from 'next/link';
-import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
-import { useKeenSlider } from 'keen-slider/react';
-import { useEffect } from 'react';
+import { Slider } from '../components/Slider';
+import FeedBackCard from '../components/FeedBackCard';
+import ReactPlayer from 'react-player';
 
 const Banner = () => {
   return (
@@ -40,47 +38,6 @@ const Banner = () => {
         zIndex: -1,
       }}
     >
-      <HStack spacing={4} justifyContent='flex-end'>
-        <Link isExternal href={'/'}>
-          <a>
-            <Icon
-              _hover={{
-                paddingBottom: '2px',
-                borderBottom: '2px solid #7CC0E9',
-              }}
-              as={FaFacebookF}
-              color='white'
-              boxSize={4}
-            />
-          </a>
-        </Link>
-        <Link isExternal href={'/'}>
-          <a>
-            <Icon
-              _hover={{
-                paddingBottom: '2px',
-                borderBottom: '2px solid #7CC0E9',
-              }}
-              as={FaInstagram}
-              color='white'
-              boxSize={4}
-            />
-          </a>
-        </Link>
-        <Link isExternal href={'/'}>
-          <a>
-            <Icon
-              _hover={{
-                paddingBottom: '2px',
-                borderBottom: '2px solid #7CC0E9',
-              }}
-              as={FaTwitter}
-              color='white'
-              boxSize={4}
-            />
-          </a>
-        </Link>
-      </HStack>
       <Box position='absolute' width='100%' height='100%'>
         <Container maxW='container.lg' height='100%'>
           <Box
@@ -94,7 +51,7 @@ const Banner = () => {
           >
             <Heading
               marginTop='50px'
-              fontSize={['xl', null, null, '75px']}
+              fontSize={['50px', null, null, '75px']}
               lineHeight='tall'
               color='white'
             >
@@ -102,12 +59,13 @@ const Banner = () => {
             </Heading>
           </Box>
           <Flex
+            alignItems={['center', null, 'start', null]}
             marginTop='-300px'
             h='440px'
-            justifyContent='space-between'
+            justifyContent={['space-around', null, null, 'space-between']}
             flexWrap='wrap'
           >
-            <Box w='390px'>
+            <Box w='390px' marginTop={['200px', null, '0', null]}>
               <Heading fontSize='32px' color='white' fontWeight='bold'>
                 Who we are?
               </Heading>
@@ -128,9 +86,12 @@ const Banner = () => {
 const ContactsForm = () => {
   return (
     <Stack
+      marginLeft={['0', '20px', null, '0']}
+      justifyContent='center'
+      marginTop={['50px', '0', null, null]}
       alignItems='center'
       bgColor='black'
-      w='425px'
+      w={['300px', null, null, '425px']}
       h='440px'
       spacing={5}
       boxShadow='0px 0px 20px 10px white'
@@ -141,11 +102,11 @@ const ContactsForm = () => {
         </Heading>
         <Text color='white'>Make your memories immortal!</Text>
       </Flex>
-      <Input w='350px' placeholder='Name' />
-      <Input w='350px' placeholder='E-mail' />
-      <Input w='350px' placeholder='Phone number' />
-      <Input w='350px' placeholder='Message' />
-      <Button bgColor='#99E836' color='white' w='350px'>
+      <Input w='80%' placeholder='Name' />
+      <Input w='80%' placeholder='E-mail' />
+      <Input w='80%' placeholder='Phone number' />
+      <Input w='80%' height='80px' placeholder='Message' />
+      <Button bgColor='#99E836' color='white' w='80%'>
         Send
       </Button>
     </Stack>
@@ -154,42 +115,57 @@ const ContactsForm = () => {
 
 export const About = () => {
   return (
-    <Box bgColor='#030308' w='100%' id='about'>
-      <Container maxW='container.md'>
+    <Box
+      bgColor='#030308'
+      w='100%'
+      id='about'
+      marginTop={['350px', null, '0', null]}
+    >
+      <Container maxW='container.lg'>
         <Heading
           margin='0'
           fontSize='36px'
           paddingTop='300px'
           color='white'
           fontWeight='bold'
+          textAlign={['center', null, 'left', null]}
         >
           What we do?
         </Heading>
-        <Flex marginTop='70px' justifyContent='space-between' flexWrap='wrap'>
-          <Benefits
-            mx='auto'
-            bgUrl='1Benefits'
-            photoContent='1benefContent'
-            desc='Corporate Videos'
-          />
-          <Benefits
-            mx='auto'
-            bgUrl='3beneficts'
-            photoContent='2benefContent'
-            desc='Commercials'
-          />
-          <Benefits
-            mx='auto'
-            bgUrl='1Benefits'
-            photoContent='3benefContent'
-            desc='Drone filming'
-          />
-          <Benefits
-            mx='auto'
-            bgUrl='1Benefits'
-            photoContent='4benefContent'
-            desc='360 - degree shots'
-          />
+        <Flex
+          marginTop='70px'
+          justifyContent={['center', null, 'space-between', null]}
+          alignItems='center'
+          flexWrap='wrap'
+        >
+          <Flex mx='auto' flexWrap='wrap' justifyContent='center'>
+            <Benefits
+              mx='auto'
+              bgUrl='1Benefits'
+              photoContent='1benefContent'
+              desc='Corporate Videos'
+            />
+            <Benefits
+              mx='auto'
+              bgUrl='3beneficts'
+              photoContent='2benefContent'
+              desc='Commercials'
+            />
+          </Flex>
+          <Flex mx='auto' flexWrap='wrap' justifyContent='center'>
+            <Benefits
+              mx='auto'
+              bgUrl='1Benefits'
+              photoContent='3benefContent'
+              desc='Drone filming'
+            />
+            <Benefits
+              mx='auto'
+              bgUrl='1Benefits'
+              photoContent='4benefContent'
+              desc='360 - degree shots'
+            />
+          </Flex>
         </Flex>
       </Container>
     </Box>
@@ -217,20 +193,48 @@ const Benefits = ({ bgUrl, photoContent, desc }) => {
   );
 };
 
+const videos = [
+  {
+    name: '1',
+    link: 'https://www.youtube.com/watch?v=K0ExQES7KJE',
+  },
+  {
+    name: '2',
+    link: 'https://www.youtube.com/watch?v=K0ExQES7KJE',
+  },
+  {
+    name: '3',
+    link: 'https://www.youtube.com/watch?v=K0ExQES7KJE',
+  },
+  {
+    name: '4',
+    link: 'https://vimeo.com/509811987',
+  },
+];
+
 const Projects = () => {
   return (
     <Box bgColor='#030308' paddingTop='150px' id='projects'>
       <Container maxW='container.lg'>
-        <Flex justifyContent='space-between'>
-          <Box border='white 23px solid'>
+        <Flex
+          justifyContent='space-between'
+          flexDir={['column', null, 'row', null]}
+        >
+          <Box size='auto' border='white 15px solid'>
             <Image src='/assets/ProjectsBanner.png' />
           </Box>
-          <Stack w='458px' spacing={6}>
+          <Stack
+            paddingLeft={['0', null, '10px', '0']}
+            w={['300px', null, '360px', '458px']}
+            spacing={3}
+            alignItems={['center', null, 'start', null]}
+          >
             <Heading fontSize='48px' color='white' fontWeight='bold'>
               Charley and <br /> Hannah’s <br />
               wedding
             </Heading>
             <Text
+              display={['none', null, 'block', null]}
               paddingY='5px'
               borderTop='1px solid #353539'
               borderBottom='1px solid #353539'
@@ -238,7 +242,11 @@ const Projects = () => {
             >
               2019 - 14 April
             </Text>
-            <Text fontSize='12px' color='#919191'>
+            <Text
+              fontSize='12px'
+              color='#919191'
+              display={['none', null, 'block', null]}
+            >
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem. Nemo enim ipsam
               voluptatem quia voluptas sit aspernatur aut odit aut fugit. Totam
@@ -256,17 +264,29 @@ const Projects = () => {
             </Button>
           </Stack>
         </Flex>
-        <Flex
-          justifyContent='space-between'
-          paddingY='50px'
-          borderY='1px solid white'
-          marginTop='20px'
-        >
-          <Text color='white'>Other projects</Text>
-          <Box>
-            {/* Здесь будет каруселька с видосиками вынести в компонент*/}
-          </Box>
-        </Flex>
+        <Stack paddingY='50px' borderY='1px solid white' marginTop='20px'>
+          <Heading color='white' fontWeight='bold'>
+            Other projects
+          </Heading>
+          <Slider
+            paddingTop='80px'
+            slidesCount={[{ base: 1, md: 1 }, null, null, { base: 1, md: 1 }]}
+            items={videos.map(({ link }, idx) => (
+              <Box key={idx} padding='0'>
+                {/* <ReactPlayer url={link} /> */}
+                <iframe
+                  className='keen-slider__slide'
+                  src={`https://player.vimeo.com/video/76979871?background=0&muted=1`}
+                  width='500'
+                  height='360'
+                  frameBorder='0'
+                  allow='autoplay'
+                  allowFullScreen
+                ></iframe>
+              </Box>
+            ))}
+          />
+        </Stack>
       </Container>
     </Box>
   );
@@ -315,7 +335,6 @@ const Testimonals = () => {
         backgroundImage: "url('/assets/FeedbackBG.png')",
         backgroundPosition: 'center',
         backgroundSize: 'cover',
-        zIndex: -1,
       }}
     >
       <Container
@@ -324,81 +343,24 @@ const Testimonals = () => {
         justifyContent='flex-end'
         alignItems='center'
       >
-        <Box w='400px'>
+        <Box zIndex='2' w={['250px', null, '400px', null]}>
           <Heading fontSize='48px' color='white' fontWeight='bold'>
             What people say about us?
           </Heading>
-          {/* <TestimonalsSlider paddingTop='80px' testimonals={testimonals} /> */}
+          <Slider
+            paddingTop='80px'
+            slidesCount={{ base: 1, md: 1 }}
+            items={testimonals.map(({ desc, name, company }, idx) => (
+              <FeedBackCard
+                key={idx}
+                name={name}
+                desc={desc}
+                company={company}
+              />
+            ))}
+          />
         </Box>
       </Container>
-    </Box>
-  );
-};
-
-const TestimonalsSlider = ({ testimonals }) => {
-  const slidesCount = useBreakpointValue({ base: 1, md: 2 });
-
-  const [sliderRef, slider] = useKeenSlider({
-    slidesPerView: slidesCount,
-    spacing: 20,
-  });
-
-  const sliderButtonColorScheme = useBreakpointValue({
-    base: 'gray',
-    xl: 'blackAlpha',
-  });
-
-  useEffect(() => {
-    if (slider) {
-      slider.resize();
-    }
-  }, [testimonals, slider]);
-
-  return (
-    <Box position='relative' width='100%'>
-      <Flex ref={sliderRef} className='keen-slider' overflow='hidden'>
-        {testimonals.map(({ desc, name, company }, idx) => (
-          <Stack spacing={6} key={idx} w='400px'>
-            <Text fontSize='14px' color='white'>
-              {desc}
-            </Text>
-            <Text fontSize='18px' fontWeight='bold' color='white'>
-              {name}
-            </Text>
-            <Text fontSize='12px' fontWeight='bold' color='white'>
-              {company}
-            </Text>
-          </Stack>
-        ))}
-      </Flex>
-      <IconButton
-        position='absolute'
-        colorScheme={sliderButtonColorScheme}
-        borderRadius='full'
-        top='calc(50% - 20px)'
-        left={'20px'}
-        _hover={{
-          transform: 'scale(1.1)',
-        }}
-        icon={<Icon as={FaAngleLeft} boxSize='20px' />}
-        onClick={() => {
-          slider.prev(1);
-        }}
-      />
-      <IconButton
-        borderRadius='full'
-        colorScheme={sliderButtonColorScheme}
-        position='absolute'
-        top='calc(50% - 20px)'
-        right={'20px'}
-        _hover={{
-          transform: 'scale(1.1)',
-        }}
-        icon={<Icon as={FaAngleRight} boxSize='20px' />}
-        onClick={() => {
-          slider.next(1);
-        }}
-      />
     </Box>
   );
 };
@@ -407,13 +369,25 @@ const Contacts = () => {
   return (
     <Box id='contacts' bgColor='black' paddingTop='80px' h='800px'>
       <Container maxW='container.lg'>
-        <Flex justifyContent='space-between'>
+        <Flex
+          justifyContent={['space-around', null, null, 'space-between']}
+          flexWrap='wrap'
+          alignItems='center'
+        >
           <ContactsForm />
-          <Stack w='400px' spacing={7}>
+          <Stack
+            w={['400px', null, '300px', '400px']}
+            spacing={7}
+            marginTop={['50px', '30px', '0', null]}
+          >
             <Heading fontSize='36px' color='white' fontWeight='bold'>
               We keep your best memories
             </Heading>
-            <Box bg='url("/assets/contactsFire.png")' bgSize='cover' h='400px'>
+            <Box
+              bg='url("/assets/contactsFire.png")'
+              bgSize='cover'
+              height={['200px', null, '350px', null]}
+            >
               <Text color='white'>
                 We make you memories immortal and unforgettable. By bringing our
                 ideas to life we create the best solution to your
@@ -429,7 +403,7 @@ const Contacts = () => {
 
 const Footer = () => {
   return (
-    <Box bgColor='black'>
+    <Box bgColor='black' marginTop={['200px', null, '0', null]}>
       <Container maxW='container.lg'>
         <Heading fontSize='32px' fontWeight='400' color='white'>
           Logotype
@@ -438,25 +412,30 @@ const Footer = () => {
           justifyContent='space-between'
           paddingBottom='40px'
           borderBottom='1px solid #71777D'
+          flexWrap='wrap'
         >
-          <HStack spacing={10}>
+          <HStack
+            spacing={[5, null, 10, null]}
+            flexWrap={['wrap', null, 'no-wrap', null]}
+            borderBottom={['1px solid white', null, null, 'none']}
+          >
             <Text fontSize='16px' color='white'>
-              About
+              <a href='#main'>Who we are</a>
             </Text>
             <Text fontSize='16px' color='white'>
-              Careers
+              <a href='#about'></a>What we do
             </Text>
             <Text fontSize='16px' color='white'>
-              Press
+              <a href='#projects'>Our Projects</a>
             </Text>
             <Text fontSize='16px' color='white'>
-              Customer Care
+              <a href='#feedback'>Testimonals</a>
             </Text>
             <Text fontSize='16px' color='white'>
-              Service
+              <a href='#contacts'>Contact Us</a>
             </Text>
           </HStack>
-          <Stack>
+          <Stack paddingTop={['20px', null, null, '0']}>
             <Text fontSize='16px' color='white'>
               Get the freshest news from us
             </Text>
@@ -470,16 +449,55 @@ const Footer = () => {
                 Subscribe
               </Button>
             </HStack>
+            <HStack spacing={4} justifyContent='flex-end'>
+              <Link isExternal href={'/'}>
+                <a>
+                  <Icon
+                    _hover={{
+                      paddingBottom: '2px',
+                      borderBottom: '2px solid #7CC0E9',
+                    }}
+                    as={FaFacebookF}
+                    color='white'
+                    boxSize={4}
+                  />
+                </a>
+              </Link>
+              <Link isExternal href={'/'}>
+                <a>
+                  <Icon
+                    _hover={{
+                      paddingBottom: '2px',
+                      borderBottom: '2px solid #7CC0E9',
+                    }}
+                    as={FaInstagram}
+                    color='white'
+                    boxSize={4}
+                  />
+                </a>
+              </Link>
+              <Link isExternal href={'/'}>
+                <a>
+                  <Icon
+                    _hover={{
+                      paddingBottom: '2px',
+                      borderBottom: '2px solid #7CC0E9',
+                    }}
+                    as={FaTwitter}
+                    color='white'
+                    boxSize={4}
+                  />
+                </a>
+              </Link>
+            </HStack>
           </Stack>
         </Flex>
-        <Flex paddingY='40px' justifyContent='space-between'>
+        <Flex paddingY='40px' justifyContent='space-between' flexWrap='wrap'>
           <HStack>
             <Text color='#92989F'>Terms & conditions |</Text>
             <Text color='#92989F'>Privacy Policy |</Text>
-            <Text color='#92989F'>Accessibility |</Text>
-            <Text color='#92989F'>Legal</Text>
           </HStack>
-          <Text color='#92989F'>
+          <Text color='#92989F' marginTop={['10px', '0', null, null]}>
             Design with love © Rearm.dev 2021. All right reserved
           </Text>
         </Flex>
@@ -490,67 +508,16 @@ const Footer = () => {
 
 const Home = () => {
   return (
-    <Box>
-      <Container maxW='container.md'>
-        <Stack
-          spacing='60px'
-          pos='fixed'
-          marginLeft='10px'
-          marginTop='50px'
-          zIndex='16'
-        >
-          <a href='#main'>
-            <Text
-              color='#696A6B'
-              transform='rotate(90deg)'
-              _hover={{
-                color: 'white',
-                borderBottom: '1px solid #18A0FB',
-                padding: '0',
-              }}
-            >
-              Who we are
-            </Text>
-          </a>
-          <a href='#about'>
-            <Text
-              color='#696A6B'
-              transform='rotate(90deg)'
-              _hover={{
-                color: 'white',
-                borderBottom: '1px solid #18A0FB',
-                padding: '0',
-              }}
-            >
-              What we do
-            </Text>
-          </a>
-          <a href='#projects'>
-            <Text
-              color='#696A6B'
-              transform='rotate(90deg)'
-              _hover={{
-                color: 'white',
-                borderBottom: '1px solid #18A0FB',
-                padding: '0',
-              }}
-            >
-              Our projects
-            </Text>
-          </a>
-          <a href='#feedback'>
-            <Text
-              color='#696A6B'
-              transform='rotate(90deg)'
-              _hover={{
-                color: 'white',
-                borderBottom: '1px solid #18A0FB',
-                padding: '0',
-              }}
-            >
-              Testimonals
-            </Text>
-          </a>
+    <Box bgColor='#030308'>
+      <Stack
+        spacing='80px'
+        pos='fixed'
+        marginLeft={[0, null, '10px', null]}
+        paddingLeft={['2px', null]}
+        marginTop='50px'
+        zIndex='16'
+      >
+        <a href='#main'>
           <Text
             color='#696A6B'
             transform='rotate(90deg)'
@@ -560,16 +527,66 @@ const Home = () => {
               padding: '0',
             }}
           >
-            <a href='#contacts'>Contact Us</a>
+            Who we are
           </Text>
-        </Stack>
-        <Banner name='main' />
-        <About name='about' />
-        <Projects name='projects' />
-        <Testimonals name='feedback' />
-        <Contacts name='contacts' />
-        <Footer />
-      </Container>
+        </a>
+        <a href='#about'>
+          <Text
+            color='#696A6B'
+            transform='rotate(90deg)'
+            _hover={{
+              color: 'white',
+              borderBottom: '1px solid #18A0FB',
+              padding: '0',
+            }}
+          >
+            What we do
+          </Text>
+        </a>
+        <a href='#projects'>
+          <Text
+            color='#696A6B'
+            transform='rotate(90deg)'
+            _hover={{
+              color: 'white',
+              borderBottom: '1px solid #18A0FB',
+              padding: '0',
+            }}
+          >
+            Our projects
+          </Text>
+        </a>
+        <a href='#feedback'>
+          <Text
+            color='#696A6B'
+            transform='rotate(90deg)'
+            _hover={{
+              color: 'white',
+              borderBottom: '1px solid #18A0FB',
+              padding: '0',
+            }}
+          >
+            Testimonals
+          </Text>
+        </a>
+        <Text
+          color='#696A6B'
+          transform='rotate(90deg)'
+          _hover={{
+            color: 'white',
+            borderBottom: '1px solid #18A0FB',
+            padding: '0',
+          }}
+        >
+          <a href='#contacts'>Contact Us</a>
+        </Text>
+      </Stack>
+      <Banner name='main' />
+      <About name='about' />
+      <Projects name='projects' />
+      <Testimonals name='feedback' />
+      <Contacts name='contacts' />
+      <Footer />
     </Box>
   );
 };

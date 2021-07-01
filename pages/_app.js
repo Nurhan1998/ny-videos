@@ -1,7 +1,25 @@
-import '../styles/globals.css';
+import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import theme from '../theme';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      cacheTime: Infinity,
+      refetchOnMount: false,
+    },
+  },
+});
+
+export default function CustomApp({ Component, pageProps }) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+        <ReactQueryDevtools />
+      </ChakraProvider>
+    </QueryClientProvider>
+  );
 }
-
-export default MyApp;
